@@ -28,6 +28,23 @@ class Solution:
                 break
             i += 1
         return res
+
+    def mySqrtOpt(self,x :int) -> int:
+        # // 二分查找，每次查找当前值的一半，并进行比较，若当前值的平方大于x，缩短右区间；若小于x，缩短左区间
+        start,end = 0,x
+        mid = x // 2
+        while start <= mid:
+            # 平方>x,缩短右区间
+            if mid * mid > x:
+                end = mid - 1
+            # 平方<x,缩短左区间
+            elif mid * mid < x:
+                start = mid + 1
+            elif mid * mid == x:
+                break
+            mid = (start + end) // 2
+        return mid
+
 if __name__ == "__main__":
     s = Solution()
-    print(s.mySqrt(5))
+    print(s.mySqrtOpt(8))

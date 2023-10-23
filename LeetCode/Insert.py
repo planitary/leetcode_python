@@ -5,15 +5,16 @@ class Insert:
     def binaryInsert(self,nums:List[int], x:int):
         nums.sort()
         start,end = 0,len(nums) - 1
-        mid = end // 2
-        while start <= mid:
+        mid = -1
+        while start <= end:
+            # 先计算减法可以避免溢出
+            mid = start + (end - start) // 2
             if x < nums[mid]:
                 end = mid - 1
             elif x > nums[mid]:
                 start = mid + 1
             elif x == nums[mid]:
                 break
-            mid = (start + end) // 2
         # 找到了插入的位置
         nums.insert(mid,x)
 

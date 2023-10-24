@@ -33,3 +33,6 @@ class Solution:
             else:
                 left = mid + 1
         return left + 1
+
+    def isBadVersion(self,n:int) -> bool:
+        pass

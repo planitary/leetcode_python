@@ -19,7 +19,7 @@ class Solution:
         half_x = x / 2
         i = 0
         res = 1
-        while (i <= half_x + 1):
+        while i <= half_x + 1:
             if i * i > x :
                 res = i - 1
                 break

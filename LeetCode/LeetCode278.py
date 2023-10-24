@@ -18,6 +18,9 @@
  * 输入：n = 1, bad = 1
  * 输出：1
 """
+"""# The isBadVersion API is already defined for you.
+# def isBadVersion(version: int) -> bool:
+"""
 class Solution:
     # // 二分查找，每次查找一半位置的版本号，查看是否错误，错误的话缩短右区间，正确的话缩短左区间
     # // isBadVersion在原题的父类中被实现，这里不做实现,注意原题中isBadVersion的传参为产品号，比下标多1

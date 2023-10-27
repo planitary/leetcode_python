@@ -48,13 +48,14 @@ class BinaryTree:
                 level_queue.put(node.right)
 
     # 创建一颗二叉树
-    def create_birary_tree(self,nums:List[int], index:int) -> TreeNode:
+    @staticmethod
+    def create_birary_tree(nums:List[int], index:int) -> TreeNode:
         root = None
         if index < len(nums):
             if nums[index] is not None:
                 root = TreeNode(nums[index])
-                root.left = self.create_birary_tree(nums,index * 2 + 1)
-                root.right = self.create_birary_tree(nums,index * 2 + 2)
+                root.left = BinaryTree.create_birary_tree(nums,index * 2 + 1)
+                root.right = BinaryTree.create_birary_tree(nums,index * 2 + 2)
         return root
 
 if __name__ == "__main__":

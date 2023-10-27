@@ -22,7 +22,7 @@
 """
 from typing import List
 
-from LeetCode.binaryTree import TreeNode
+from LeetCode.binaryTree import TreeNode,BinaryTree
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode'):
         # // 自底向上进行查找，使用回溯（递归），由于是自底向上遍历，使用二叉树的后序遍历
@@ -45,18 +45,10 @@ class Solution:
         else:
             return None
 
-    def create_Tree(self, ll: List[int], index: int) -> TreeNode:
-        root = None
-        if index < len(ll):
-            if ll[index] is not None:
-                root = TreeNode(ll[index])
-                root.left = self.create_Tree(ll, index * 2 + 1)
-                root.right = self.create_Tree(ll, index * 2 + 2)
-        return root
 
 if __name__ == "__main__":
     s = Solution()
     nodes = [8,10,4,1,7,15,20,None,None,6,5]
-    root : TreeNode = s.create_Tree(nodes,0)
+    root :TreeNode = BinaryTree.create_birary_tree(nodes,0)
     ancestor:TreeNode = s.lowestCommonAncestor(root,TreeNode(6),TreeNode(5))
     print(ancestor.val)

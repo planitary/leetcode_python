@@ -46,19 +46,68 @@ class DoubleLinkedList:
                 print(current_node.value)
             current_node = current_node.next
 
+    # 获取链表长度
+    @staticmethod
+    def get_size_of_linked_list(head: DoubleListNode) -> int:
+        if head.value is None:
+            return -1
+        current_node:DoubleListNode = head
+        count = 0
+        while current_node is not None:
+            count += 1
+            current_node = current_node.next
+        return count
+
+    # 任意位置插入链表
+    def add(self,index:int,value:int):
+        linked_list_size:int = DoubleLinkedList.get_size_of_linked_list(self.head)
+        if 0 <= index <= linked_list_size:
+           # 索引在开头，直接头插法
+            if index == 0:
+                self.insert(value)
+                return
+            # 索引在结尾，直接尾插法
+            elif index == linked_list_size:
+                self.append(value)
+                return
+            # 其余情况分开讨论，索引在左半边和右半边
+            current_node:DoubleListNode  = DoubleListNode()
+            if index <= (linked_list_size >> 1) - 1:
+                current_node = self.head
+                while index > 0:
+                    current_node = current_node.next
+                    index -= 1
+            else:
+                current_node = self.tail
+                i = linked_list_size - 1
+                while i > index:
+                    current_node = current_node.prev
+                    i -= 1
+            # 找到当前位置后进行插入，插入位置节点的prev的next（即前一个节点的next）指向新结点，新节点的next指向当前插入位置的节点
+            new_node:DoubleListNode = DoubleListNode(value)
+            current_node.prev.next = new_node
+            new_node.next = current_node
+
 if __name__ == "__main__":
     d = DoubleLinkedList()
     # 尾插
-    # for i in range(8):
-    #     value = random.randint(0,100)
-    #     d.append(value)
-    #     print(value,end=" ")
-    # 头插
     for i in range(8):
         value = random.randint(0,100)
-        d.insert(value)
+        d.append(value)
         print(value,end=" ")
-    print(" ")
+    print("")
+    # 头插
+    # for i in range(8):
+    #     value = random.randint(0,100)
+    #     d.insert(value)
+    #     print(value,end=" ")
+    # print(" ")
     d.display_linked_list(d.head)
+    print("链表长度:%d" %DoubleLinkedList.get_size_of_linked_list(d.head))
+    d.add(6,200)
+    d.display_linked_list(d.head)
+    print("链表长度:%d" %DoubleLinkedList.get_size_of_linked_list(d.head))
+
+
 
 

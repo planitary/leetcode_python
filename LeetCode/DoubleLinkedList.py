@@ -12,6 +12,19 @@ class DoubleLinkedList:
     head: DoubleListNode = DoubleListNode()
     tail: DoubleListNode = DoubleListNode()
 
+    def __init__(self,with_head:bool):
+        if with_head:
+            self.head.next = self.tail
+            self.tail.prev = self.head
+
+    # 双向链表头插法（伪头尾节点）
+    def insert_with_head(self,value:int):
+        node:DoubleListNode = DoubleListNode(value)
+        node.next = self.head.next
+        self.head.next = node
+        node.prev = self.head
+
+
     # 双链表尾插法
     def append(self, val: int):
         newNode = DoubleListNode(val)
@@ -37,12 +50,12 @@ class DoubleLinkedList:
     # 遍历双链表
     @staticmethod
     def display_linked_list(head: DoubleListNode):
-        if head.value is None:
+        if head is None:
             print("empty linkedlist")
         current_node: DoubleListNode = head
         while current_node is not None:
             if current_node.next is not None:
-                print("%d<-->" % current_node.value, end="")
+                print("%s<-->" % current_node.value, end="")
             else:
                 print(current_node.value)
             current_node = current_node.next
@@ -50,7 +63,7 @@ class DoubleLinkedList:
     # 获取链表长度
     @staticmethod
     def get_size_of_linked_list(head: DoubleListNode) -> int:
-        if head.value is None:
+        if head is None:
             return -1
         current_node: DoubleListNode = head
         count = 0
@@ -136,13 +149,19 @@ class DoubleLinkedList:
                 print("删除的链表结点为:%d" %delete_node.value)
 
 if __name__ == "__main__":
-    d = DoubleLinkedList()
+    d = DoubleLinkedList(False)
     # 尾插
     for i in range(8):
         value = random.randint(0, 100)
         d.append(value)
         print(value, end=" ")
     print("")
+    # 伪头结点插入
+    # for i in range(8):
+    #     value = random.randint(0,100)
+    #     d.insert_with_head(value)
+    #     print(value,end = " ")
+    # print(" ")
     # 头插
     # for i in range(8):
     #     value = random.randint(0,100)
@@ -151,6 +170,6 @@ if __name__ == "__main__":
     # print(" ")
     d.display_linked_list(d.head)
     print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))
-    d.delete(6)
-    d.display_linked_list(d.head)
-    print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))
+    # d.delete(6)
+    # d.display_linked_list(d.head)
+    # print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))

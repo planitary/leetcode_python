@@ -12,17 +12,50 @@ class DoubleLinkedList:
     head: DoubleListNode = DoubleListNode()
     tail: DoubleListNode = DoubleListNode()
 
-    def __init__(self,with_head:bool):
+    def __init__(self, with_head: bool):
         if with_head:
             self.head.next = self.tail
             self.tail.prev = self.head
+        else:
+            pass
 
     # 双向链表头插法（伪头尾节点）
-    def insert_with_head(self,value:int):
-        node:DoubleListNode = DoubleListNode(value)
+    def insert_with_head(self, value: int):
+        node: DoubleListNode = DoubleListNode(value)
+        self.head.next.prev = node
         node.next = self.head.next
         self.head.next = node
         node.prev = self.head
+
+    # 获取任意位置的双链表节点
+    def get_node_by_index(self,index:int )-> DoubleListNode:
+        node:DoubleListNode = DoubleListNode()
+        linked_size = self.get_size_of_linked_list(self.head)
+        if 0 <= index <= linked_size:
+            if index >= 0:
+                if index <= (linked_size >> 1) - 1:
+                    node = self.head
+                    while index > 0:
+                        node = node.next
+                        index -= 1
+                else:
+                    node = self.tail
+                    i = linked_size - 1
+                    while i > index:
+                        node = node.prev
+                        i -= 1
+        return node
+
+    # 带头结点的双链表任意节点移入末尾
+    def move_2_tail(self,node:DoubleListNode):
+        # 先删除当前节点，在尾插法
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+        self.tail.prev.next = node
+        node.prev = self.tail.prev
+        node.next = self.tail
+        self.tail.prev = node
 
 
     # 双链表尾插法
@@ -103,11 +136,11 @@ class DoubleLinkedList:
             new_node.next = current_node
 
     # 任意位置删除
-    def delete(self,index:int):
+    def delete(self, index: int):
         linked_size = self.get_size_of_linked_list(self.head)
         if 0 <= index <= linked_size:
             if index >= 0:
-                delete_node : DoubleListNode = DoubleListNode()
+                delete_node: DoubleListNode = DoubleListNode()
                 # 头部删除
                 if index == 0:
                     delete_node = self.head
@@ -115,7 +148,7 @@ class DoubleLinkedList:
                     self.head.prev = None
                     delete_node.next = None
                     delete_node.prev = None
-                    print("删除的链表节点为:%d" %delete_node.value)
+                    print("删除的链表节点为:%d" % delete_node.value)
                     return
                 # 尾部删除
                 if index == linked_size - 1:
@@ -124,10 +157,10 @@ class DoubleLinkedList:
                     self.tail.next = None
                     delete_node.prev = None
                     delete_node.next = None
-                    print("删除的链表结点为:%d" %delete_node.value)
+                    print("删除的链表结点为:%d" % delete_node.value)
                     return
                 # 任意位置删除
-                current_node:DoubleListNode = DoubleListNode()
+                current_node: DoubleListNode = DoubleListNode()
                 if index <= (linked_size >> 1) - 2:
                     current_node = self.head
                     while index > 0:
@@ -146,22 +179,23 @@ class DoubleLinkedList:
                 current_node.prev.next = current_node.next
                 delete_node.prev = None
                 delete_node.next = None
-                print("删除的链表结点为:%d" %delete_node.value)
+                print("删除的链表结点为:%d" % delete_node.value)
+
 
 if __name__ == "__main__":
-    d = DoubleLinkedList(False)
+    d = DoubleLinkedList(True)
     # 尾插
-    for i in range(8):
-        value = random.randint(0, 100)
-        d.append(value)
-        print(value, end=" ")
-    print("")
+    # for i in range(12):
+    #     value = random.randint(0, 100)
+    #     d.append(value)
+    #     print(value, end=" ")
+    # print("")
     # 伪头结点插入
-    # for i in range(8):
-    #     value = random.randint(0,100)
-    #     d.insert_with_head(value)
-    #     print(value,end = " ")
-    # print(" ")
+    for i in range(7):
+        value = random.randint(0,100)
+        d.insert_with_head(value)
+        print(value,end = " ")
+    print(" ")
     # 头插
     # for i in range(8):
     #     value = random.randint(0,100)
@@ -170,6 +204,10 @@ if __name__ == "__main__":
     # print(" ")
     d.display_linked_list(d.head)
     print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))
+    d.move_2_tail(d.get_node_by_index(3))
+    d.display_linked_list(d.head)
+
+
     # d.delete(6)
     # d.display_linked_list(d.head)
     # print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))

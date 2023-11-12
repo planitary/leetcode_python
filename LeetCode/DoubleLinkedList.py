@@ -2,10 +2,11 @@ import random
 
 
 class DoubleListNode:
-    def __init__(self, value=None, next=None, prev=None):
+    def __init__(self, key=None, value=None):
         self.value = value
-        self.next = next
-        self.prev = prev
+        self.next = None
+        self.prev = None
+        self.key = key
 
 
 class DoubleLinkedList:
@@ -21,11 +22,18 @@ class DoubleLinkedList:
 
     # 双向链表头插法（伪头尾节点）
     def insert_with_head(self, value: int):
-        node: DoubleListNode = DoubleListNode(value)
+        node: DoubleListNode = DoubleListNode(value=value)
         self.head.next.prev = node
         node.next = self.head.next
         self.head.next = node
         node.prev = self.head
+
+    # 双向链表尾部删除
+    def delete_from_tail(self,tail_prev_node:DoubleListNode):
+        tail_prev_node.prev.next = self.tail
+        self.tail.prev = tail_prev_node.prev
+        tail_prev_node.prev = None
+        tail_prev_node.next = None
 
     # 获取任意位置的双链表节点
     def get_node_by_index(self,index:int )-> DoubleListNode:

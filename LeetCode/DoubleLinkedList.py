@@ -68,7 +68,7 @@ class DoubleLinkedList:
 
     # 双链表尾插法
     def append(self, val: int):
-        newNode = DoubleListNode(val)
+        newNode = DoubleListNode(value=val)
         if self.head.value is None:
             self.head = newNode
             self.tail = newNode
@@ -79,7 +79,7 @@ class DoubleLinkedList:
 
     # 双链表头插法
     def insert(self, val: int):
-        newNode = DoubleListNode(val)
+        newNode = DoubleListNode(value=val)
         if self.head.value is None:
             self.head = newNode
             self.tail = newNode
@@ -139,7 +139,7 @@ class DoubleLinkedList:
                     current_node = current_node.prev
                     i -= 1
             # 找到当前位置后进行插入，插入位置节点的prev的next（即前一个节点的next）指向新结点，新节点的next指向当前插入位置的节点
-            new_node: DoubleListNode = DoubleListNode(value)
+            new_node: DoubleListNode = DoubleListNode(value=value)
             current_node.prev.next = new_node
             new_node.next = current_node
 
@@ -191,19 +191,20 @@ class DoubleLinkedList:
 
 
 if __name__ == "__main__":
-    d = DoubleLinkedList(True)
+    # 带头结点的构造函数传True，不带的传False
+    d = DoubleLinkedList(False)
     # 尾插
-    # for i in range(12):
-    #     value = random.randint(0, 100)
-    #     d.append(value)
-    #     print(value, end=" ")
-    # print("")
+    for i in range(12):
+        value = random.randint(0, 100)
+        d.append(value)
+        print(value, end=" ")
+    print("")
     # 伪头结点插入
-    for i in range(7):
-        value = random.randint(0,100)
-        d.insert_with_head(value)
-        print(value,end = " ")
-    print(" ")
+    # for i in range(7):
+    #     value = random.randint(0,100)
+    #     d.insert_with_head(value)
+    #     print(value,end = " ")
+    # print(" ")
     # 头插
     # for i in range(8):
     #     value = random.randint(0,100)
@@ -212,7 +213,9 @@ if __name__ == "__main__":
     # print(" ")
     d.display_linked_list(d.head)
     print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))
-    d.move_2_tail(d.get_node_by_index(3))
+    # d.move_2_tail(d.get_node_by_index(3))
+    # d.delete_from_tail(d.tail.prev)
+    d.add(7,100)
     d.display_linked_list(d.head)
 
 

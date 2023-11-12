@@ -31,7 +31,6 @@ from LeetCode.DoubleLinkedList import DoubleListNode
 
 class LRUCache:
 
-
     def __init__(self, capacity: int):
         self.cache = dict()
         self.capacity = capacity
@@ -64,7 +63,7 @@ class LRUCache:
     # // 如果插入操作导致关键字数量超过 capacity ，则应该逐出最久未使用的关键字。
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
-            node:DoubleListNode = self.cache.get(key)
+            node: DoubleListNode = self.cache.get(key)
             node.value = value
             node.prev.next = node.next
             node.next.prev = node.prev
@@ -74,7 +73,7 @@ class LRUCache:
             self.size += 1
             if self.size > self.capacity:
                 # 逐出链表尾部元素
-                delete_node:DoubleListNode = self.tail.prev
+                delete_node: DoubleListNode = self.tail.prev
                 self.delete_from_tail(delete_node)
                 del self.cache[delete_node.key]
                 self.size -= 1
@@ -96,14 +95,15 @@ class LRUCache:
         tail_prev_node.prev = None
         tail_prev_node.next = None
 
+
 if __name__ == "__main__":
     s = LRUCache(2)
-    s.put(1,1)
-    s.put(2,2)
+    s.put(1, 1)
+    s.put(2, 2)
     print(s.get(1))
-    s.put(3,3)
+    s.put(3, 3)
     print(s.get(2))
-    s.put(4,4)
+    s.put(4, 4)
     print(s.get(1))
     print(s.get(3))
     print(s.get(4))

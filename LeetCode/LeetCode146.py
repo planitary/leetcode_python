@@ -45,8 +45,9 @@ class LRUCache:
     # 存在于缓存中，则返回关键字的值，否则返回 - 1。
     # // 注意这里访问然以后要将当前节点放到链表的头部
     def get(self, key: int) -> int:
-        if key in self.cache:
-            current_node: DoubleListNode = self.cache[key]
+        current_node: DoubleListNode = self.cache.get(key)
+
+        if current_node is not None:
             # 获取到了结点，则该结点被访问，移入链表头
             current_node.prev.next = current_node.next
             current_node.next.prev = current_node.prev

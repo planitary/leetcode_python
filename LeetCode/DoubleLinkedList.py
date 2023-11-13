@@ -1,4 +1,5 @@
 import random
+from typing import Optional
 
 
 class DoubleListNode:
@@ -10,8 +11,8 @@ class DoubleListNode:
 
 
 class DoubleLinkedList:
-    head: DoubleListNode = DoubleListNode()
-    tail: DoubleListNode = DoubleListNode()
+    head: Optional[DoubleListNode] = DoubleListNode()
+    tail: Optional[DoubleListNode] = DoubleListNode()
 
     def __init__(self, with_head: bool):
         if with_head:
@@ -148,6 +149,11 @@ class DoubleLinkedList:
         linked_size = self.get_size_of_linked_list(self.head)
         if 0 <= index <= linked_size:
             if index >= 0:
+                # 仅一个节点时
+                if linked_size == 1:
+                    self.head = None
+                    self.tail = None
+                    return
                 delete_node: DoubleListNode = DoubleListNode()
                 # 头部删除
                 if index == 0:
@@ -194,7 +200,7 @@ if __name__ == "__main__":
     # 带头结点的构造函数传True，不带的传False
     d = DoubleLinkedList(False)
     # 尾插
-    for i in range(12):
+    for i in range(1):
         value = random.randint(0, 100)
         d.append(value)
         print(value, end=" ")
@@ -215,7 +221,7 @@ if __name__ == "__main__":
     print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))
     # d.move_2_tail(d.get_node_by_index(3))
     # d.delete_from_tail(d.tail.prev)
-    d.add(7,100)
+    d.delete(0)
     d.display_linked_list(d.head)
 
 

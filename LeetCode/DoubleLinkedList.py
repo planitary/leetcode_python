@@ -144,7 +144,7 @@ class DoubleLinkedList:
             current_node.prev.next = new_node
             new_node.next = current_node
 
-    # 任意位置删除(todo:这里有个bug，仅有一个节点是删除会报错）
+    # 任意位置删除
     def delete(self, index: int):
         linked_size = self.get_size_of_linked_list(self.head)
         if 0 <= index <= linked_size:

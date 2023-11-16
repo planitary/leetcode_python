@@ -89,6 +89,13 @@ class DoubleLinkedList:
             self.head.prev = newNode
             self.head = newNode
 
+    # 拼接两个链表
+    def join(self,otherList:"DoubleLinkedList"):
+        if otherList.head is not None:
+            if self.head is not None and self.tail is not None:
+                self.tail.next = otherList.head
+                otherList.head.prev = self.tail
+
     # 遍历双链表
     @staticmethod
     def display_linked_list(head: DoubleListNode):
@@ -200,7 +207,7 @@ if __name__ == "__main__":
     # 带头结点的构造函数传True，不带的传False
     d = DoubleLinkedList(False)
     # 尾插
-    for i in range(1):
+    for i in range(7):
         value = random.randint(0, 100)
         d.append(value)
         print(value, end=" ")
@@ -221,7 +228,16 @@ if __name__ == "__main__":
     print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d.head))
     # d.move_2_tail(d.get_node_by_index(3))
     # d.delete_from_tail(d.tail.prev)
-    d.delete(0)
+    # d.delete(0)
+    d1 = DoubleLinkedList(False)
+    for i in range(5):
+        value = random.randint(0, 100)
+        d1.append(value)
+        print(value, end=" ")
+    print("")
+    d1.display_linked_list(d1.head)
+    print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d1.head))
+    d.join(d1)
     d.display_linked_list(d.head)
 
 

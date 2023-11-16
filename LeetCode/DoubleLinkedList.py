@@ -1,5 +1,6 @@
 import random
 from typing import Optional
+import time
 
 
 class DoubleListNode:
@@ -8,7 +9,7 @@ class DoubleListNode:
         self.next = None
         self.prev = None
         self.key = key
-
+        self.time_stamp = int(time.time() * 1000)
 
 class DoubleLinkedList:
     head: Optional[DoubleListNode] = DoubleListNode()
@@ -29,7 +30,7 @@ class DoubleLinkedList:
         self.head.next = node
         node.prev = self.head
 
-    # 双向链表尾部删除
+    # 双向链表尾部删除（带伪头尾节点）
     def delete_from_tail(self,tail_prev_node:DoubleListNode):
         tail_prev_node.prev.next = self.tail
         self.tail.prev = tail_prev_node.prev
@@ -205,19 +206,19 @@ class DoubleLinkedList:
 
 if __name__ == "__main__":
     # 带头结点的构造函数传True，不带的传False
-    d = DoubleLinkedList(False)
+    d = DoubleLinkedList(True)
     # 尾插
-    for i in range(7):
-        value = random.randint(0, 100)
-        d.append(value)
-        print(value, end=" ")
-    print("")
-    # 伪头结点插入
     # for i in range(7):
-    #     value = random.randint(0,100)
-    #     d.insert_with_head(value)
-    #     print(value,end = " ")
-    # print(" ")
+    #     value = random.randint(0, 100)
+    #     d.append(value)
+    #     print(value, end=" ")
+    # print("")
+    # 伪头结点插入
+    for i in range(7):
+        value = random.randint(0,100)
+        d.insert_with_head(value)
+        print(value,end = " ")
+    print(" ")
     # 头插
     # for i in range(8):
     #     value = random.randint(0,100)
@@ -229,15 +230,16 @@ if __name__ == "__main__":
     # d.move_2_tail(d.get_node_by_index(3))
     # d.delete_from_tail(d.tail.prev)
     # d.delete(0)
-    d1 = DoubleLinkedList(False)
-    for i in range(5):
-        value = random.randint(0, 100)
-        d1.append(value)
-        print(value, end=" ")
-    print("")
-    d1.display_linked_list(d1.head)
-    print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d1.head))
-    d.join(d1)
+    # d1 = DoubleLinkedList(False)
+    # for i in range(5):
+    #     value = random.randint(0, 100)
+    #     d1.append(value)
+    #     print(value, end=" ")
+    # print("")
+    # d1.display_linked_list(d1.head)
+    # print("链表长度:%d" % DoubleLinkedList.get_size_of_linked_list(d1.head))
+    # d.join(d1)
+    d.add(1,999)
     d.display_linked_list(d.head)
 
 

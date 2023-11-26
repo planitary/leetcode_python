@@ -1,4 +1,4 @@
-import time
+import time,re
 def fib(n):
     if n < 2:
         return n
@@ -6,10 +6,13 @@ def fib(n):
 
 if __name__ == "__main__":
 
-    s = "the blue sky"
+    s = "5123"
+    pattern = re.compile(r"\d +")
+    numbers = pattern.match(s)
+    print(numbers)
+    # print(numbers.group())
     # s = s[::-1]
-    left,right = 0,1
-    s[2],s[1] = s[1],s[2]
+
 
     # while right < len(s):
     #     if s[right] == " ":
